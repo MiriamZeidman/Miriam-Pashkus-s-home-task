@@ -6,12 +6,26 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const mongoose = require("mongoose");
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+const mongoString = process.env.MONGO_CONNECTION
+
+mongoose.connect(mongoString);
+const database = mongoose.connection
+
+database.on('error', (error) => {
+  console.log(error)
+})
+
+database.once('connected', () => {
+  console.log('Database Connected');
+})
 
 app.use(logger('dev'));
 app.use(express.json());
