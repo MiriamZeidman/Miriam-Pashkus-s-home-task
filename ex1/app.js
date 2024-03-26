@@ -4,8 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var coronaDetailsRouter = require('./routes/coronaDetails');
+
 const mongoose = require("mongoose");
 
 var app = express();
@@ -22,7 +23,6 @@ const database = mongoose.connection
 database.on('error', (error) => {
   console.log(error)
 })
-
 database.once('connected', () => {
   console.log('Database Connected');
 })
@@ -33,8 +33,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/coronaDetails', coronaDetailsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

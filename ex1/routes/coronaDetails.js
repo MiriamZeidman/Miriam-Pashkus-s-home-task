@@ -4,12 +4,11 @@ const Model = require('../model/model');
 
 router.post('/:id', function(req, res, next) {
     const data = new Model({
-        name:req.body.name,
         id:req.body.id,
-        address:req.body.address,
-        dateOfBirth:req.body.dateOfBirth,
-        phone:req.body.phone,
-        mobilePhone:req.body.mobilePhone,
+        dateOfCoronaVaccine:req.body.dateOfCoronaVaccine,
+        manufacturerOfVaccine:req.body.manufacturerOfVaccine,
+        dateOfPositiveResult:req.body.dateOfPositiveResult,
+        recoveryDate:req.body.recoveryDate,
     })
 
     try {
