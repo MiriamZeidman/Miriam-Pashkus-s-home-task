@@ -13,6 +13,18 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: String
     },
+    dateOfBirth: {
+        required: true,
+        type: String
+    },
+    phone: {
+        required: true,
+        type: Number
+    },
+    mobilePhone: {
+        required: true,
+        type: Number
+    },
 })
 
 module.exports = mongoose.model('Data', dataSchema)
