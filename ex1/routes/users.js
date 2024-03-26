@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Model = require('../model/model');
+
 router.post('/:id', function(req, res, next) {
     const data = new Model({
         name:req.body.name,

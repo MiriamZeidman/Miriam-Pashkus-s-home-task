@@ -6,8 +6,7 @@ const dataSchema = new mongoose.Schema({
         type: String
     },
     id: {
-        required: true,
-        type: Number
+        type: String, unique: true
     },
     address: {
         required: true,
