@@ -26,7 +26,7 @@ module.exports = router;
 //Get by ID Method
 router.get('/:id', async (req, res) => {
     try{
-        const data = await Model.findById(req.params.id);
+        const data = await Model.findOne({id:req.params.id});
         res.json(data)
     }
     catch(error){
@@ -40,23 +40,19 @@ router.patch('/:id', async (req, res) => {
         const id = req.params.id;
         const updatedData = req.body;
         const options = { new: true };
-
-        const result = await Model.findByIdAndUpdate(
-            id, updatedData, options
-        )
-
+        const result = await Model.findOneAndUpdate({id:id}, updatedData, options)
         res.send(result)
     }
     catch (error) {
         res.status(400).json({ message: error.message })
     }
-})
+});
 
 //Delete by ID Method
 router.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const data = await Model.findByIdAndDelete(id)
+        const data = await Model.findOneAndDelete({id:id})
         res.send(`Document with ${data.name} has been deleted..`)
     }
     catch (error) {
