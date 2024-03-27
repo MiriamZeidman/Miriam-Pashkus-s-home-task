@@ -6,7 +6,7 @@ var logger = require('morgan');
 require('dotenv').config()
 
 var usersRouter = require('./routes/users');
-var coronaDetailsRouter = require('./routes/coronaDetails');
+var coronaDetailsRouter = require('./routes/coronaVaccine');
 
 const mongoose = require("mongoose");
 

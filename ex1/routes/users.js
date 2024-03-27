@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Model = require('../model/model');
+const Model = require('../model/userModel');
 
 router.post('/:id', function(req, res, next) {
     const data = new Model({
@@ -10,6 +10,8 @@ router.post('/:id', function(req, res, next) {
         dateOfBirth:req.body.dateOfBirth,
         phone:req.body.phone,
         mobilePhone:req.body.mobilePhone,
+        dateOfPositiveResult:req.body.dateOfPositiveResult,
+        recoveryDate:req.body.recoveryDate,
     })
 
     try {

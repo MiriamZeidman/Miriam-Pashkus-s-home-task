@@ -14,15 +14,23 @@ const dataSchema = new mongoose.Schema({
     },
     dateOfBirth: {
         required: true,
-        type: String
+        type: Date
     },
     phone: {
         required: true,
-        type: Number
+        type: String
     },
     mobilePhone: {
         required: true,
-        type: Number
+        type: String
+    },
+    dateOfPositiveResult: {
+        required: false,
+        type: Date
+    },
+    recoveryDate: {
+        required: false,
+        type: Date
     },
 })
 

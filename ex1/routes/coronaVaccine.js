@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Model = require('../model/coronaModel');
+const Model = require('../model/coronaVaccineModel');
 
 router.post('/:id', function(req, res, next) {
     const data = new Model({

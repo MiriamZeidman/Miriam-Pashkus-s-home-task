@@ -7,20 +7,12 @@ const dataSchema = new mongoose.Schema({
     },
     dateOfCoronaVaccine: {
         required: true,
-        type: String
+        type: Date
     },
     manufacturerOfVaccine: {
         required: true,
         type: String
     },
-    dateOfPositiveResult: {
-        required: true,
-        type: String
-    },
-    recoveryDate: {
-        required: true,
-        type: String
-    },
 })
 
-module.exports = mongoose.model('coronaDetails', dataSchema)
+module.exports = mongoose.model('coronaVaccine', dataSchema)
