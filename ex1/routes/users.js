@@ -1,9 +1,26 @@
 var express = require('express');
 var router = express.Router();
-const Model = require('../model/userModel');
+const userModel = require('../model/userModel');
+const coronaVaccineModel = require('../model/coronaVaccineModel');
 
+
+//Add user
 router.post('/:id', function(req, res, next) {
-    const data = new Model({
+    try {
+        const id = req.body.id;
+        if (id.length !== 9) {
+            throw new Error('ID must have exactly 9 digits');
+        }
+        if (!/^\d+$/.test(id)) {
+            throw new Error('ID must contain only numeric digits');
+        }
+        if (!/^\d+$/.test(req.body.phone)) {
+            throw new Error('Phone must contain only numeric digits');
+        }
+        if (!/^\d+$/.test(req.body.mobilePhone)) {
+            throw new Error('Mobile-phone must contain only numeric digits');
+        }
+        const data = new userModel({
         name:req.body.name,
         id:req.body.id,
         address:req.body.address,
@@ -13,8 +30,6 @@ router.post('/:id', function(req, res, next) {
         dateOfPositiveResult:req.body.dateOfPositiveResult,
         recoveryDate:req.body.recoveryDate,
     })
-
-    try {
         const dataToSave = data.save();
         res.status(200).json(dataToSave)
     }
@@ -28,13 +43,34 @@ module.exports = router;
 //Get by ID Method
 router.get('/:id', async (req, res) => {
     try{
-        const data = await Model.findOne({id:req.params.id});
+        const data = await userModel.findOne({id:req.params.id});
+        if (!data) {
+            // If no document with the specified ID is found, send a 404 error response
+            return res.status(404).json({ message: `User with ID ${req.params.id} doesn't exist` });
+        }
+        // Validate ID format (numeric digits only)
+        if (!/^\d+$/.test(req.params.id)) {
+            throw new Error('ID must contain only numeric digits');
+        }
         res.json(data)
     }
     catch(error){
-        res.status(500).json({message: error.message})
+        res.status(400).json({message: error.message})
     }
 });
+
+
+//Get all users
+router.get('/', async (req, res) => {
+    try{
+        const data = await userModel.find();
+        res.json(data)
+    }
+    catch(error){
+        res.status(400).json({message: error.message})
+    }
+});
+
 
 //Update by ID Method
 router.patch('/:id', async (req, res) => {
@@ -42,7 +78,7 @@ router.patch('/:id', async (req, res) => {
         const id = req.params.id;
         const updatedData = req.body;
         const options = { new: true };
-        const result = await Model.findOneAndUpdate({id:id}, updatedData, options)
+        const result = await userModel.findOneAndUpdate({id:id}, updatedData, options)
         res.send(result)
     }
     catch (error) {
@@ -50,11 +86,20 @@ router.patch('/:id', async (req, res) => {
     }
 });
 
+
 //Delete by ID Method
 router.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const data = await Model.findOneAndDelete({id:id})
+        const data = await userModel.findOneAndDelete({id:id})
+        if (!data) {
+            // If no document with the specified ID is found, send a 404 error response
+            return res.status(404).json({ message: `User with ID ${req.params.id} doesn't exist` });
+        }
+        // Validate ID format (numeric digits only)
+        if (!/^\d+$/.test(id)) {
+            throw new Error('ID must contain only numeric digits');
+        }
         res.send(`Document with ${data.name} has been deleted..`)
     }
     catch (error) {
