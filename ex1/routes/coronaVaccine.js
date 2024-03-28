@@ -9,6 +9,7 @@ router.post('/:id', function(req, res, next) {
         if (req.body.id.length !== 9) {
             throw new Error('ID must have exactly 9 digits');
         }
+
         const data = new coronaVaccineModel({
         id:req.body.id,
         dateOfCoronaVaccine:req.body.dateOfCoronaVaccine,
