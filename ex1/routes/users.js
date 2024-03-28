@@ -5,7 +5,7 @@ const coronaVaccineModel = require('../model/coronaVaccineModel');
 
 
 //Add user
-router.post('/:id', function(req, res, next) {
+router.post('/', function(req, res, next) {
     try {
         const id = req.body.id;
         if (id.length !== 9) {

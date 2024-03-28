@@ -4,7 +4,7 @@ const coronaVaccineModel = require('../model/coronaVaccineModel');
 
 
 //Add corona-vaccine
-router.post('/:id', function(req, res, next) {
+router.post('/',  function(req, res, next) {
     try {
         if (req.body.id.length !== 9) {
             throw new Error('ID must have exactly 9 digits');
